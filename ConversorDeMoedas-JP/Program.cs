@@ -4,6 +4,7 @@ using ConversorDeMoedas;
 
 List<Moeda> moedas = new List<Moeda>()
 {
+    new Moeda() { Nome = "Real Brasileiro", Cotacao = 1.00m },
     new Moeda() { Nome = "Dólar", Cotacao = 4.50m },
     new Moeda() { Nome = "Euro", Cotacao = 6.20m },
     new Moeda() { Nome = "Iene", Cotacao = 0.052m },
@@ -76,7 +77,6 @@ void ListarMoedas()
     Console.WriteLine("-------------------\n");
 }
 
-// Método para adicionar uma nova moeda
 void AdicionarMoeda()
 {
     Console.WriteLine("==== Menu de Adição ====\n");
@@ -84,14 +84,62 @@ void AdicionarMoeda()
     Console.Write("Digite o nome da moeda: ");
     string nome = Console.ReadLine();
     Console.Write("Digite a cotação: ");
-    decimal.TryParse(Console.ReadLine(), out decimal cotacao);
-    
-    moedas.Add(new Moeda() {Nome = nome, Cotacao = cotacao});
+
+    if (!decimal.TryParse(Console.ReadLine(), out decimal cotacao))
+    {
+        Console.WriteLine("Valor incorreto!");
+    }
+    else
+    {
+        moedas.Add(new Moeda() { Nome = nome, Cotacao = cotacao });
+        Console.WriteLine("Moeda adicionada com sucesso!");
+    }
 }
 
 void ConverterMoeda()
 {
-    // TODO: Implementar a lógica de conversão entre moedas
+    Console.WriteLine("==== Menu de Conversão ====\n");
+
+    for (int i = 0; i < moedas.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}- {moedas[i].Nome} {moedas[i].Cotacao}");
+    }
+
+    bool conversao = true;
+    while (conversao != false)
+    {
+        Console.Write("\nDigite o n° da moeda inicial: ");
+        if (int.TryParse(Console.ReadLine(), out int inicio) && inicio < moedas.Count)
+        {
+            Console.WriteLine("");
+        }
+        else
+        {
+            Console.Write("Opção incorreta! Digite novamente: ");
+        }
+
+        Console.Write("\nDigite o n° da moeda final: ");
+        if (int.TryParse(Console.ReadLine(), out int final) && final >= 0 &&  final < moedas.Count)
+        {
+            Console.WriteLine("");
+        }
+        else
+        {
+            Console.Write("Opção incorreta! Digite novamente: ");
+        }
+
+        Console.Write("\nDigite o valor para conversão: ");
+        if (decimal.TryParse(Console.ReadLine(), out decimal valor))
+        {
+            decimal valorConvertido = (valor * moedas[inicio].Cotacao) / moedas[final].Cotacao;
+            Console.WriteLine($"\nO valor convertido é: {valorConvertido:f2} {moedas[final -1].Nome}");
+            conversao = false;
+        }
+        else
+        {
+            Console.Write("Valor inválido! Digite novamente: ");
+        }
+    }
 }
 
 // Desafio extra:
