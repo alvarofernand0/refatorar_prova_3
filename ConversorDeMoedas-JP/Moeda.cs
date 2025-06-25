@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace ConversorDeMoedas
 {
     public class Moeda
