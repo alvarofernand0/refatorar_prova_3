@@ -77,10 +77,10 @@ void AdicionarMoedas()
         Console.Write("Digite o nome da nova Moeda: ");
         string novoNome = Console.ReadLine();
 
-        Console.WriteLine("Digite uma Cotação para a Moeda");
-        if (!decimal.TryParse(Console.ReadLine(), out decimal novaCotacao) && novaCotacao == 0)
+        Console.Write("\nDigite uma Cotação para a Moeda: ");
+        if (!decimal.TryParse(Console.ReadLine(), out decimal novaCotacao) || novaCotacao <= 0)
         {
-            Console.WriteLine("Valor inválido!");
+            Console.WriteLine("\nValor inválido!");
             Console.ReadKey();
         }
         else
@@ -88,7 +88,8 @@ void AdicionarMoedas()
             moedas.Add(new Moeda() { Nome = novoNome, Cotacao = novaCotacao });
             Console.Clear();
             moedaOk = true;
-            Console.WriteLine("Moeda adicionada com sucesso!\n Digite qualquer tecla para retornar ao Menu...");
+            Console.WriteLine("Moeda adicionada com sucesso!\n");
+            Console.WriteLine("Digite qualquer tecla para retornar ao Menu...");
             break;
         }
     }
